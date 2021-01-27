@@ -41,7 +41,7 @@ class Trainer():
 
         # Get gradient penalty
         gradient_penalty = self._gradient_penalty(data, generated_data)
-        self.losses['GP'].append(gradient_penalty.data[0])
+        self.losses['GP'].append(gradient_penalty.data.item())
 
         # Create total loss and optimize
         self.D_opt.zero_grad()
@@ -51,7 +51,7 @@ class Trainer():
         self.D_opt.step()
 
         # Record loss
-        self.losses['D'].append(d_loss.data[0])
+        self.losses['D'].append(d_loss.data.item())
 
     def _generator_train_iteration(self, data):
         """ """
@@ -68,7 +68,7 @@ class Trainer():
         self.G_opt.step()
 
         # Record loss
-        self.losses['G'].append(g_loss.data[0])
+        self.losses['G'].append(g_loss.data.item())
 
     def _gradient_penalty(self, real_data, generated_data):
         batch_size = real_data.size()[0]
@@ -95,7 +95,7 @@ class Trainer():
         # Gradients have shape (batch_size, num_channels, img_width, img_height),
         # so flatten to easily take norm per example in batch
         gradients = gradients.view(batch_size, -1)
-        self.losses['gradient_norm'].append(gradients.norm(2, dim=1).mean().data[0])
+        self.losses['gradient_norm'].append(gradients.norm(2, dim=1).mean().data.item())
 
         # Derivatives of the gradient close to 0 can cause problems because of
         # the square root, so manually calculate norm and add epsilon
