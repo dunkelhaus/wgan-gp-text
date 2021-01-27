@@ -1,4 +1,4 @@
-# Wasserstein GAN with Gradient penalty
+# Wasserstein GAN with Gradient Penalty for latent codes of utterances
 
 Pytorch implementation of [Improved Training of Wasserstein GANs](https://arxiv.org/abs/1704.00028) by Gulrajani et al.
 
