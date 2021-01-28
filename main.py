@@ -4,7 +4,7 @@ from dataloaders import get_mnist_dataloaders, get_lsun_dataloader
 from models import Generator, Discriminator
 from training import Trainer
 
-data_loader, _ = get_mnist_dataloaders(batch_size=64)
+data_loader, _ = get_mnist_dataloaders(batch_size=128)
 img_size = (32, 32, 1)
 
 generator = Generator(img_size=img_size, latent_dim=100, dim=16)
