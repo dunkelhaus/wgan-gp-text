@@ -5,7 +5,12 @@ from torch.autograd import Variable
 
 
 class Generator(nn.Module):
-    def __init__(self, img_size, latent_dim, dim):
+    def __init__(
+            self,
+            img_size,
+            latent_dim,
+            dim
+    ):
         super(Generator, self).__init__()
 
         self.dim = dim
@@ -39,8 +44,10 @@ class Generator(nn.Module):
         # Map latent into appropriate size for transposed convolutions
         x = self.latent_to_features(input_data)
         # Reshape
-        x = x.view(-1, int(8 * self.dim), int(self.feature_sizes[0]), int(self.feature_sizes[1]))
-        # Return generated image
+        x = x.view(-1, int(8 * self.dim),
+                   int(self.feature_sizes[1]),
+                   int(self.feature_sizes[0]))
+
         return self.features_to_image(x)
 
     def sample_latent(self, num_samples):
