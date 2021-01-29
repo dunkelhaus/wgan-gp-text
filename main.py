@@ -1,8 +1,8 @@
 import torch
 import torch.optim as optim
-from dataloaders import get_mnist_dataloaders, get_lsun_dataloader
-from models import Generator, Discriminator
 from training import Trainer
+from models import Generator, Discriminator
+from dataloaders import get_mnist_dataloaders
 
 data_loader, _ = get_mnist_dataloaders(batch_size=128)
 img_size = (32, 32, 1)
