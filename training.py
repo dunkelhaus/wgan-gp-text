@@ -208,6 +208,7 @@ class Trainer():
                 if self.num_steps > self.critic_iterations:
                     print(f"G: {self.losses['G'][-1]}")
 
+    # XXX: Stays unchanged.
     def train(
             self,
             data_loader: torch.utils.data.DataLoader,
@@ -248,6 +249,7 @@ class Trainer():
             imageio.mimsave(f"./training_{epochs}_epochs.gif",
                             training_progress_images)
 
+    # XXX: Stays unchanged.
     def sample_generator(self, num_samples: int) -> torch.Tensor:
         """
         Sample noise vector of shape (num_samples, latent_dim),
