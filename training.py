@@ -178,14 +178,6 @@ class Trainer():
         # print(f"Saved gradnorm:
         #        f"{self.gp_weight * ((gradnorm - 1) ** 2).mean()}")
 
-        # --- Former issue ---
-        # Derivatives of the gradient close to 0 can cause problems because of
-        # the square root, so manually calculate norm and add epsilon
-        # gradients_norm = torch.sqrt(torch.sum(gradients ** 2, dim=1) + 1e-12)
-        # print(f"Used gradnorm:
-        #        f"{self.gp_weight * ((gradients_norm - 1) ** 2).mean()}")
-        # --- xxx ---
-
         # Return gradient penalty
         return self.gp_weight * ((gradnorm - 1) ** 2).mean()
 
