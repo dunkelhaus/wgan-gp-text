@@ -86,13 +86,14 @@ def gradient_penalty(critic, real_codes, fake_codes, *, alpha=None, rng=None):
 
 
 def _validate_update(generator, critic, optimizer, owner):
+    """Require distinct models and one optimizer entry per trainable owner."""
     generator_ids = {id(p) for p in generator.parameters()}
     critic_ids = {id(p) for p in critic.parameters()}
     if generator_ids & critic_ids:
         raise ValueError("Generator and critic cannot share parameters")
     expected = {id(p) for p in owner.parameters() if p.requires_grad}
-    actual = {id(p) for group in optimizer.param_groups for p in group["params"]}
-    if not expected or actual != expected:
+    actual = [id(p) for group in optimizer.param_groups for p in group["params"]]
+    if not expected or set(actual) != expected or len(actual) != len(set(actual)):
         raise ValueError("Optimizer must own exactly the trainable phase parameters")
     for module in (generator, critic):
         for parameter in module.parameters():
